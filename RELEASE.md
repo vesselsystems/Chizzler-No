@@ -5,11 +5,23 @@ This project ships as a downloadable macOS DMG containing `ThoughtRecorder.app`.
 ## Local Release Build
 
 ```bash
-chmod +x build.sh scripts/package_dmg.sh
+chmod +x build.sh scripts/package_dmg.sh scripts/checksum.sh scripts/generate_icon.swift
 ./scripts/package_dmg.sh
+./scripts/checksum.sh
 ```
 
 The DMG is written to `dist/ThoughtRecorder-1.0.0.dmg`.
+
+## Automated GitHub Release
+
+Push a version tag to trigger the GitHub Actions release workflow:
+
+```bash
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+The workflow builds the DMG, generates the checksum, uploads both as workflow artifacts, and attaches them to the matching GitHub Release.
 
 ## Configurable Metadata
 

@@ -2,6 +2,8 @@
 
 ThoughtRecorder is a tiny macOS menu bar app for fast voice capture.
 
+![ThoughtRecorder preview](assets/preview.svg)
+
 ## Download or Build
 
 ThoughtRecorder is open source so people can choose the path that fits them:
@@ -12,6 +14,10 @@ ThoughtRecorder is open source so people can choose the path that fits them:
 See [INSTALL.md](INSTALL.md) for both install paths.
 
 For privacy details, see [PRIVACY.md](PRIVACY.md).
+
+## Current Status
+
+ThoughtRecorder is currently a community-distributed macOS app. Public release builds are open source and ad-hoc signed unless a release explicitly says it is Developer ID signed and notarized.
 
 Its Phase 1 workflow is intentionally simple:
 
@@ -90,6 +96,10 @@ chmod +x build.sh scripts/package_dmg.sh scripts/checksum.sh
 The distributable DMG is written to `dist/ThoughtRecorder-1.0.0.dmg`.
 
 Before public distribution, sign/notarize with an Apple Developer ID certificate for the cleanest install experience. See [RELEASE.md](RELEASE.md) for the full release workflow.
+
+## Automation
+
+GitHub Actions builds the app and uploads DMG/checksum artifacts for pushes and pull requests. Tagged releases such as `v1.0.1` publish the DMG assets to GitHub Releases automatically.
 
 ## Permissions
 

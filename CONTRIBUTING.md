@@ -22,6 +22,12 @@ Package a DMG:
 ./scripts/package_dmg.sh
 ```
 
+Generate the app icon:
+
+```bash
+./scripts/generate_icon.swift build/ThoughtRecorder.app/Contents/Resources/AppIcon.icns
+```
+
 ## Pull Requests
 
 Please keep changes focused and include manual test notes for recording, clipboard copy, menu actions, and permission behavior when relevant.

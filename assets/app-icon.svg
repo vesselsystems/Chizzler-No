@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">ThoughtRecorder app icon</title>
+  <desc id="desc">A rounded dark app icon with a microphone and teal audio bars.</desc>
+  <defs>
+    <linearGradient id="bg" x1="160" y1="120" x2="864" y2="904" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#11191d"/>
+      <stop offset="1" stop-color="#173036"/>
+    </linearGradient>
+  </defs>
+  <rect x="48" y="48" width="928" height="928" rx="224" fill="url(#bg)"/>
+  <circle cx="512" cy="512" r="328" fill="none" stroke="#28d9c2" stroke-opacity=".18" stroke-width="22"/>
+  <rect x="394" y="280" width="236" height="456" rx="118" fill="#eefbf5"/>
+  <path d="M452 432h120M452 552h120M452 672h120" fill="none" stroke="#183036" stroke-opacity=".25" stroke-width="18" stroke-linecap="round"/>
+  <path d="M328 568c36 112 120 168 184 168s148-56 184-168" fill="none" stroke="#39e6ca" stroke-width="42" stroke-linecap="round"/>
+  <path d="M512 736v104M408 840h208" fill="none" stroke="#39e6ca" stroke-width="42" stroke-linecap="round"/>
+  <rect x="750" y="454" width="36" height="116" rx="18" fill="#39e6ca"/>
+  <rect x="826" y="408" width="48" height="208" rx="24" fill="#39e6ca"/>
+  <rect x="914" y="352" width="60" height="320" rx="30" fill="#39e6ca"/>
+</svg>

@@ -6,7 +6,7 @@ ThoughtRecorder has two install paths.
 
 Use this if you want the simplest install.
 
-1. Download the latest DMG from the GitHub Releases page or the website download page.
+1. Download the latest DMG from the [GitHub Releases page](https://github.com/vesselsystems/Chizzler-No/releases) or the website download page.
 2. Open the DMG.
 3. Drag `ThoughtRecorder.app` into `Applications`.
 4. Open `ThoughtRecorder` from `Applications`.

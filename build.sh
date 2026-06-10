@@ -33,6 +33,8 @@ cat > "$APP_DIR/Contents/Info.plist" <<'PLIST'
     <string>__EXECUTABLE_NAME__</string>
     <key>CFBundleIdentifier</key>
     <string>__BUNDLE_ID__</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>CFBundleName</key>
     <string>__APP_NAME__</string>
     <key>CFBundlePackageType</key>
@@ -96,6 +98,7 @@ else
 fi
 
 chmod +x "$MACOS_DIR/$EXECUTABLE_NAME"
+"$ROOT_DIR/scripts/generate_icon.swift" "$RESOURCES_DIR/AppIcon.icns"
 
 CODE_SIGN_ARGS=(--force --deep --sign "$SIGN_IDENTITY")
 if [[ "$SIGN_IDENTITY" != "-" ]]; then
