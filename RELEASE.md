@@ -64,11 +64,19 @@ Alternatively, set `APPLE_ID`, `APPLE_TEAM_ID`, and `APP_SPECIFIC_PASSWORD` inst
 
 ## Website Download
 
-Upload the DMG from `dist/` to your website host or object storage and link to it from the new tab/page:
+Upload the DMG from `dist/` to GitHub Releases, your website host, or object storage and link to it from the new tab/page:
 
 ```html
 <a href="/downloads/ThoughtRecorder-1.0.0.dmg" download>
   Download for macOS
+</a>
+```
+
+For transparency, include a second link to the public source code:
+
+```html
+<a href="https://github.com/vesselsystems/Chizzler-No">
+  View source on GitHub
 </a>
 ```
 

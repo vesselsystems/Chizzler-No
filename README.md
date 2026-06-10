@@ -2,6 +2,15 @@
 
 ThoughtRecorder is a tiny macOS menu bar app for fast voice capture.
 
+## Download or Build
+
+ThoughtRecorder is open source so people can choose the path that fits them:
+
+- Non-technical users can download a DMG from the website or GitHub Releases.
+- Technical users can inspect the code, clone the repo, and build the app locally.
+
+See [INSTALL.md](INSTALL.md) for both install paths.
+
 Its Phase 1 workflow is intentionally simple:
 
 1. Hold the record shortcut and talk
@@ -16,7 +25,7 @@ That design is deliberate. ThoughtRecorder is a voice buffer, not a universal au
 - Hold to talk: `Control + Option + Command + Space`
 - Paste last transcript: `Control + Option + Command + V`
 
-You can change them in [HotKeyManager.swift](/Users/chriscasey/Desktop/recorder/HotKeyManager.swift).
+You can change them in [HotKeyManager.swift](HotKeyManager.swift).
 
 ## Product Model
 
@@ -78,7 +87,7 @@ chmod +x build.sh scripts/package_dmg.sh scripts/checksum.sh
 
 The distributable DMG is written to `dist/ThoughtRecorder-1.0.0.dmg`.
 
-Before public distribution, set a permanent bundle identifier and sign/notarize with an Apple Developer ID certificate. See [RELEASE.md](/Users/chriscasey/Desktop/recorder/RELEASE.md) for the full release workflow.
+Before public distribution, set a permanent bundle identifier and sign/notarize with an Apple Developer ID certificate. See [RELEASE.md](RELEASE.md) for the full release workflow.
 
 ## Permissions
 
@@ -140,8 +149,8 @@ This is useful for diagnosing “why didn’t the next transcription start?” p
 
 ## Files
 
-- [AppDelegate.swift](/Users/chriscasey/Desktop/recorder/AppDelegate.swift): state machine and menu bar orchestration
-- [HotKeyManager.swift](/Users/chriscasey/Desktop/recorder/HotKeyManager.swift): separate record and paste shortcuts
-- [SpeechController.swift](/Users/chriscasey/Desktop/recorder/SpeechController.swift): speech capture lifecycle
-- [PasteService.swift](/Users/chriscasey/Desktop/recorder/PasteService.swift): clipboard copy and optional paste-latest behavior
-- [OverlayWindowController.swift](/Users/chriscasey/Desktop/recorder/OverlayWindowController.swift): tiny non-activating status overlay
+- [AppDelegate.swift](AppDelegate.swift): state machine and menu bar orchestration
+- [HotKeyManager.swift](HotKeyManager.swift): separate record and paste shortcuts
+- [SpeechController.swift](SpeechController.swift): speech capture lifecycle
+- [PasteService.swift](PasteService.swift): clipboard copy and optional paste-latest behavior
+- [OverlayWindowController.swift](OverlayWindowController.swift): tiny non-activating status overlay
