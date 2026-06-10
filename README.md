@@ -68,6 +68,18 @@ chmod +x build.sh
 open build/ThoughtRecorder.app
 ```
 
+## Package for Website Distribution
+
+```bash
+chmod +x build.sh scripts/package_dmg.sh scripts/checksum.sh
+./scripts/package_dmg.sh
+./scripts/checksum.sh
+```
+
+The distributable DMG is written to `dist/ThoughtRecorder-1.0.0.dmg`.
+
+Before public distribution, set a permanent bundle identifier and sign/notarize with an Apple Developer ID certificate. See [RELEASE.md](/Users/chriscasey/Desktop/recorder/RELEASE.md) for the full release workflow.
+
 ## Permissions
 
 macOS will ask for:
