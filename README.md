@@ -11,6 +11,8 @@ ThoughtRecorder is open source so people can choose the path that fits them:
 
 See [INSTALL.md](INSTALL.md) for both install paths.
 
+For privacy details, see [PRIVACY.md](PRIVACY.md).
+
 Its Phase 1 workflow is intentionally simple:
 
 1. Hold the record shortcut and talk
@@ -23,7 +25,7 @@ That design is deliberate. ThoughtRecorder is a voice buffer, not a universal au
 ## Default Shortcuts
 
 - Hold to talk: `Control + Option + Command + Space`
-- Paste last transcript: `Control + Option + Command + V`
+- Paste captured text: normal `Command + V`
 
 You can change them in [HotKeyManager.swift](HotKeyManager.swift).
 
@@ -33,7 +35,7 @@ ThoughtRecorder keeps a single `latestTranscript` buffer.
 
 - Record shortcut starts and stops speech capture
 - Releasing the record shortcut finalizes the transcript and automatically copies it to the clipboard
-- A separate paste shortcut can still try to paste the latest transcript into the current field
+- The menu can still try to paste or copy the latest transcript
 - If direct paste cannot be confirmed, the transcript is kept on the clipboard instead
 - Empty capture and canceled capture do not overwrite the latest transcript
 
@@ -41,7 +43,7 @@ This keeps the mental model simple:
 
 - one shortcut means record and copy
 - normal `Command + V` pastes the captured text
-- optional paste shortcut is only a convenience
+- menu paste is only a convenience
 
 ## Status Overlay
 
@@ -87,7 +89,7 @@ chmod +x build.sh scripts/package_dmg.sh scripts/checksum.sh
 
 The distributable DMG is written to `dist/ThoughtRecorder-1.0.0.dmg`.
 
-Before public distribution, set a permanent bundle identifier and sign/notarize with an Apple Developer ID certificate. See [RELEASE.md](RELEASE.md) for the full release workflow.
+Before public distribution, sign/notarize with an Apple Developer ID certificate for the cleanest install experience. See [RELEASE.md](RELEASE.md) for the full release workflow.
 
 ## Permissions
 
@@ -97,13 +99,14 @@ macOS will ask for:
 - Speech Recognition
 - Accessibility
 
-Accessibility is required for the optional synthetic paste shortcut.
+Accessibility is required for the optional menu paste action and Escape-to-cancel support.
+The main record-copy-then-`Command + V` workflow works without Accessibility permission.
 
 ## Paste Strategy
 
 The primary Phase 1 flow is auto-copy on release.
 
-The optional paste shortcut uses a simple best-effort paste path:
+The optional menu paste action uses a simple best-effort paste path:
 
 1. capture the currently focused field if Accessibility metadata is available
 2. place `latestTranscript` on the clipboard
@@ -142,7 +145,7 @@ This is useful for diagnosing “why didn’t the next transcription start?” p
 
 1. Hold the record shortcut, speak, release, and confirm the overlay says `Copied`.
 2. Press normal `Command + V` and confirm the captured text pastes.
-3. Optionally press the paste shortcut and confirm it inserts the latest transcript or falls back to `Copied`.
+3. Optionally use `Paste Latest Transcript` from the menu and confirm it inserts the latest transcript or falls back to `Copied`.
 4. Immediately start another recording cycle and confirm it works without getting stuck.
 5. Release after silence and confirm `No new speech detected - latest unchanged`.
 6. Press `Escape` while recording and confirm the app resets cleanly without replacing the latest transcript.
@@ -150,7 +153,7 @@ This is useful for diagnosing “why didn’t the next transcription start?” p
 ## Files
 
 - [AppDelegate.swift](AppDelegate.swift): state machine and menu bar orchestration
-- [HotKeyManager.swift](HotKeyManager.swift): separate record and paste shortcuts
+- [HotKeyManager.swift](HotKeyManager.swift): global record shortcut and cancel handling
 - [SpeechController.swift](SpeechController.swift): speech capture lifecycle
 - [PasteService.swift](PasteService.swift): clipboard copy and optional paste-latest behavior
 - [OverlayWindowController.swift](OverlayWindowController.swift): tiny non-activating status overlay

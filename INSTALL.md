@@ -11,9 +11,9 @@ Use this if you want the simplest install.
 3. Drag `ThoughtRecorder.app` into `Applications`.
 4. Open `ThoughtRecorder` from `Applications`.
 5. Grant Microphone and Speech Recognition permissions when macOS asks.
-6. Grant Accessibility permission if you want the optional paste automation shortcut.
+6. Grant Accessibility permission if you want the optional menu paste action or Escape-to-cancel support.
 
-Unsigned community builds may show a macOS warning because the app is open source and may not be notarized. If that happens, right-click `ThoughtRecorder.app`, choose `Open`, and confirm.
+Unsigned community builds may show a macOS warning because the app is open source and may not be notarized. If that happens, right-click `ThoughtRecorder.app`, choose `Open`, and confirm. You can also build from source using the steps below.
 
 ## Option 2: Build from Source
 

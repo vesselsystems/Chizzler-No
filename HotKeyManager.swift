@@ -11,12 +11,6 @@ struct HotKeyShortcut {
         label: "Control + Option + Command + Space"
     )
 
-    static let pasteShortcut = HotKeyShortcut(
-        keyCode: UInt32(kVK_ANSI_V),
-        modifiers: UInt32(cmdKey | optionKey | controlKey),
-        label: "Control + Option + Command + V"
-    )
-
     var description: String { label }
 }
 

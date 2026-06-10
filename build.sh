@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APP_NAME="${APP_NAME:-ThoughtRecorder}"
 EXECUTABLE_NAME="${EXECUTABLE_NAME:-$APP_NAME}"
-BUNDLE_ID="${BUNDLE_ID:-local.chriscasey.thoughtrecorder}"
+BUNDLE_ID="${BUNDLE_ID:-com.vesselsystems.thoughtrecorder}"
 MARKETING_VERSION="${MARKETING_VERSION:-1.0.0}"
 BUILD_NUMBER="${BUILD_NUMBER:-$(git -C "$ROOT_DIR" rev-list --count HEAD 2>/dev/null || echo 1)}"
 MIN_MACOS_VERSION="${MIN_MACOS_VERSION:-13.0}"

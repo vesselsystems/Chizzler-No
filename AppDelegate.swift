@@ -105,20 +105,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         menu.addItem(NSMenuItem.separator())
 
-        let pasteItem = NSMenuItem(title: "Paste Latest Transcript (Debug)", action: #selector(pasteLastTranscriptFromMenu), keyEquivalent: "")
+        let pasteItem = NSMenuItem(title: "Paste Latest Transcript", action: #selector(pasteLastTranscriptFromMenu), keyEquivalent: "")
         pasteItem.target = self
         menu.addItem(pasteItem)
         pasteLatestMenuItem = pasteItem
 
-        let copyTestItem = NSMenuItem(title: "Copy Test String to Clipboard", action: #selector(copyTestStringToClipboardFromMenu), keyEquivalent: "")
-        copyTestItem.target = self
-        menu.addItem(copyTestItem)
-        copyTestClipboardMenuItem = copyTestItem
+        if logger.isEnabled {
+            let copyTestItem = NSMenuItem(title: "Copy Test String to Clipboard", action: #selector(copyTestStringToClipboardFromMenu), keyEquivalent: "")
+            copyTestItem.target = self
+            menu.addItem(copyTestItem)
+            copyTestClipboardMenuItem = copyTestItem
 
-        let showClipboardItem = NSMenuItem(title: "Show System Clipboard", action: #selector(showSystemClipboardFromMenu), keyEquivalent: "")
-        showClipboardItem.target = self
-        menu.addItem(showClipboardItem)
-        showSystemClipboardMenuItem = showClipboardItem
+            let showClipboardItem = NSMenuItem(title: "Show System Clipboard", action: #selector(showSystemClipboardFromMenu), keyEquivalent: "")
+            showClipboardItem.target = self
+            menu.addItem(showClipboardItem)
+            showSystemClipboardMenuItem = showClipboardItem
+        }
 
         let showItem = NSMenuItem(title: "Show Latest Transcript", action: #selector(showLatestTranscriptFromMenu), keyEquivalent: "")
         showItem.target = self
@@ -359,7 +361,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let tooltip = """
         State: \(state.label)
         Record: \(HotKeyShortcut.recordShortcut.description)
-        Paste: menu only
+        Paste: Command-V after capture, or menu action
         Latest: \(latestTranscript == nil ? "empty" : "available")
         """
         statusItem?.button?.title = state.label == "recording" ? "Live" : "Rec"
@@ -465,7 +467,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         2. Release to finalize and copy the transcript to the clipboard.
         3. Press normal Command-V anywhere to paste it.
 
-        The menu also includes a debug-only Paste Latest Transcript action.
+        The menu also includes Paste Latest Transcript and Copy Latest Transcript actions.
         The latest transcript stays available until you replace it or clear it.
         """
         alert.addButton(withTitle: "OK")

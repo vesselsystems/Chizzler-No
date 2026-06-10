@@ -18,7 +18,9 @@ final class LaunchAtLoginManager {
         }
     }
 
-    private let identifier = "local.chriscasey.thoughtrecorder"
+    private var identifier: String {
+        Bundle.main.bundleIdentifier ?? "com.vesselsystems.thoughtrecorder"
+    }
 
     var isEnabled: Bool {
         FileManager.default.fileExists(atPath: plistURL.path)
@@ -29,28 +31,17 @@ final class LaunchAtLoginManager {
             throw LaunchAtLoginError.executablePathMissing
         }
 
-        let plist = """
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-            <key>Label</key>
-            <string>\(identifier)</string>
-            <key>ProgramArguments</key>
-            <array>
-                <string>\(executablePath)</string>
-            </array>
-            <key>RunAtLoad</key>
-            <true/>
-            <key>KeepAlive</key>
-            <false/>
-        </dict>
-        </plist>
-        """
+        let plist: [String: Any] = [
+            "Label": identifier,
+            "ProgramArguments": [executablePath],
+            "RunAtLoad": true,
+            "KeepAlive": false
+        ]
 
         try FileManager.default.createDirectory(at: plistURL.deletingLastPathComponent(), withIntermediateDirectories: true)
         do {
-            try plist.write(to: plistURL, atomically: true, encoding: .utf8)
+            let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
+            try data.write(to: plistURL, options: .atomic)
         } catch {
             throw LaunchAtLoginError.writeFailed
         }

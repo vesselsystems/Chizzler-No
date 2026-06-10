@@ -17,14 +17,14 @@ All release metadata can be supplied with environment variables:
 
 ```bash
 APP_NAME="ThoughtRecorder" \
-BUNDLE_ID="com.yourcompany.thoughtrecorder" \
+BUNDLE_ID="com.vesselsystems.thoughtrecorder" \
 MARKETING_VERSION="1.0.0" \
 BUILD_NUMBER="1" \
 ARCHS="arm64 x86_64" \
 ./scripts/package_dmg.sh
 ```
 
-Use a stable `BUNDLE_ID` before shipping publicly. Changing it later makes macOS treat the app as a different product.
+Use a stable `BUNDLE_ID` before shipping publicly. Changing it later makes macOS treat the app as a different product. The default is `com.vesselsystems.thoughtrecorder`.
 
 ## Signing
 
@@ -34,7 +34,7 @@ For public distribution, use an Apple Developer ID Application certificate:
 
 ```bash
 SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" \
-BUNDLE_ID="com.yourcompany.thoughtrecorder" \
+BUNDLE_ID="com.vesselsystems.thoughtrecorder" \
 ./scripts/package_dmg.sh
 ```
 
