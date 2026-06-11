@@ -6,20 +6,32 @@ Contributions are welcome.
 
 Requirements:
 
-- macOS 13 Ventura or later
-- Xcode Command Line Tools
+- macOS 13 Ventura or later and Xcode Command Line Tools for the macOS app
+- Windows 10 20H1 or later and the .NET 8 SDK for the Windows app
 
-Build locally:
+Build macOS locally:
 
 ```bash
 ./build.sh
 open build/ThoughtRecorder.app
 ```
 
-Package a DMG:
+Package a macOS DMG:
 
 ```bash
 ./scripts/package_dmg.sh
+```
+
+Build Windows locally:
+
+```powershell
+dotnet build windows/ThoughtRecorder.Windows.sln -c Release
+```
+
+Package Windows artifacts:
+
+```powershell
+./scripts/package_windows.ps1 -Version 1.0.0 -Runtime win-x64
 ```
 
 Generate the app icon:
@@ -30,7 +42,7 @@ Generate the app icon:
 
 ## Pull Requests
 
-Please keep changes focused and include manual test notes for recording, clipboard copy, menu actions, and permission behavior when relevant.
+Please keep changes focused and include manual test notes for recording, clipboard copy, tray/menu actions, launch-at-login, and permission behavior when relevant.
 
 ## Debug Logging
 
