@@ -1,11 +1,12 @@
 # Privacy
 
-ThoughtRecorder is designed as a local macOS voice buffer.
+ThoughtRecorder is designed as a local voice buffer for macOS and Windows.
 
 ## What the App Does
 
 - Records audio only while you hold the record shortcut.
-- Sends that audio through Apple's built-in Speech framework for transcription.
+- Sends that audio through Apple's built-in Speech framework on macOS.
+- Sends that audio through Windows speech recognition through SAPI on Windows.
 - Copies the resulting transcript to your system clipboard.
 - Keeps the latest transcript in memory while the app is running.
 
@@ -27,9 +28,16 @@ macOS may ask for:
 
 If you do not grant Accessibility permission, the main record-copy-then-Command-V workflow still works.
 
+Windows may require:
+
+- Microphone access for desktop apps: required to capture speech.
+- Installed Windows speech recognition components: required for local dictation.
+
+The main Windows workflow is record, copy, then normal `Ctrl+V`.
+
 ## Clipboard
 
-Successful transcripts are copied to the system clipboard. Other apps can read clipboard contents according to normal macOS clipboard behavior.
+Successful transcripts are copied to the system clipboard. Other apps can read clipboard contents according to normal operating system clipboard behavior.
 
 ## Open Source Verification
 

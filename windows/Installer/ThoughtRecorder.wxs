@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+    Name="ThoughtRecorder"
+    Manufacturer="Vessel Systems"
+    Version="$(var.ProductVersion)"
+    UpgradeCode="{8F6EBB6A-82B2-4239-BFD8-A55D848DF28C}"
+    Scope="perUser">
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of ThoughtRecorder is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="LocalProgramsFolder" Name="Programs">
+        <Directory Id="INSTALLFOLDER" Name="ThoughtRecorder" />
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="ThoughtRecorder" />
+    </StandardDirectory>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="AppExecutable" Guid="{E464CAEE-CDE0-4948-B1B0-0CD7DF733399}">
+        <File Id="ThoughtRecorderExe" Source="$(var.PublishDir)\ThoughtRecorder.exe" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="StartMenuShortcut" Guid="{FA75AD5A-F9E6-4977-8D1F-2073303E50C6}">
+        <Shortcut
+          Id="StartMenuShortcutItem"
+          Name="ThoughtRecorder"
+          Description="Fast voice capture"
+          Target="[INSTALLFOLDER]ThoughtRecorder.exe"
+          WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue
+          Root="HKCU"
+          Key="Software\VesselSystems\ThoughtRecorder"
+          Name="StartMenuShortcut"
+          Type="integer"
+          Value="1"
+          KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="MainFeature" Title="ThoughtRecorder" Level="1">
+      <ComponentRef Id="AppExecutable" />
+      <ComponentRef Id="StartMenuShortcut" />
+    </Feature>
+  </Package>
+</Wix>

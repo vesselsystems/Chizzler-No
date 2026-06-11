@@ -12,4 +12,6 @@ If that is not available, open a GitHub issue with a high-level description and 
 
 ## Distribution Notes
 
-Community DMG builds may be ad-hoc signed and not Apple-notarized. For the strongest install experience, build locally from source or use a Developer ID signed and notarized release.
+Community DMG builds may be ad-hoc signed and not Apple-notarized. Community Windows builds may be unsigned and may show Microsoft Defender SmartScreen warnings.
+
+For the strongest install experience, build locally from source, use a Developer ID signed and notarized macOS release, or use an Authenticode-signed Windows release when signing is added.

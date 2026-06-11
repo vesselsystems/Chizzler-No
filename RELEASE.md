@@ -1,8 +1,8 @@
 # Release Guide
 
-This project ships as a downloadable macOS DMG containing `ThoughtRecorder.app`.
+This project ships as a downloadable macOS DMG and Windows MSI/zip.
 
-## Local Release Build
+## Local macOS Release Build
 
 ```bash
 chmod +x build.sh scripts/package_dmg.sh scripts/checksum.sh scripts/generate_icon.swift
@@ -11,6 +11,23 @@ chmod +x build.sh scripts/package_dmg.sh scripts/checksum.sh scripts/generate_ic
 ```
 
 The DMG is written to `dist/ThoughtRecorder-1.0.0.dmg`.
+
+## Local Windows Release Build
+
+Run this on Windows:
+
+```powershell
+./scripts/package_windows.ps1 -Version 1.0.0 -Runtime win-x64
+```
+
+The Windows script writes:
+
+- `dist/ThoughtRecorder-1.0.0-windows-win-x64.zip`
+- `dist/ThoughtRecorder-1.0.0-windows-win-x64.zip.sha256`
+- `dist/ThoughtRecorder-1.0.0-windows-win-x64.msi`
+- `dist/ThoughtRecorder-1.0.0-windows-win-x64.msi.sha256`
+
+The zip contains a self-contained `ThoughtRecorder.exe`. The MSI is a per-user WiX installer.
 
 ## Automated GitHub Release
 
@@ -21,11 +38,11 @@ git tag v1.0.1
 git push origin v1.0.1
 ```
 
-The workflow builds the DMG, generates the checksum, uploads both as workflow artifacts, and attaches them to the matching GitHub Release.
+The workflow builds the macOS DMG, Windows zip, Windows MSI, and checksum files. Tagged builds attach all artifacts to the matching GitHub Release.
 
-## Configurable Metadata
+## Configurable macOS Metadata
 
-All release metadata can be supplied with environment variables:
+macOS release metadata can be supplied with environment variables:
 
 ```bash
 APP_NAME="ThoughtRecorder" \
@@ -38,11 +55,11 @@ ARCHS="arm64 x86_64" \
 
 Use a stable `BUNDLE_ID` before shipping publicly. Changing it later makes macOS treat the app as a different product. The default is `com.vesselsystems.thoughtrecorder`.
 
-## Signing
+## macOS Signing and Notarization
 
-Unsigned or ad-hoc signed builds are useful for local testing but not appropriate for public website downloads.
+Unsigned or ad-hoc signed builds are useful for local testing but are not the cleanest public website download path.
 
-For public distribution, use an Apple Developer ID Application certificate:
+For public macOS distribution, use an Apple Developer ID Application certificate:
 
 ```bash
 SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" \
@@ -52,9 +69,7 @@ BUNDLE_ID="com.vesselsystems.thoughtrecorder" \
 
 The build script enables hardened runtime automatically when `SIGN_IDENTITY` is not `-`.
 
-## Notarization
-
-For the best install experience, notarize the DMG with Apple and staple the ticket:
+For the best macOS install experience, notarize the DMG with Apple and staple the ticket:
 
 ```bash
 SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" \
@@ -74,13 +89,32 @@ xcrun notarytool store-credentials "your-notarytool-profile" \
 
 Alternatively, set `APPLE_ID`, `APPLE_TEAM_ID`, and `APP_SPECIFIC_PASSWORD` instead of `NOTARY_PROFILE`.
 
+## Windows Signing and SmartScreen
+
+Windows artifacts are intentionally unsigned for now. Unsigned MSI and EXE downloads can show Microsoft Defender SmartScreen warnings, especially before the project has download reputation.
+
+Users who do not want to trust an unsigned community build can inspect the source and build locally.
+
+Later, Authenticode signing can be added after `dotnet publish` and after MSI generation:
+
+```powershell
+signtool sign /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 /a build/windows/publish/win-x64/ThoughtRecorder.exe
+signtool sign /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 /a dist/ThoughtRecorder-1.0.0-windows-win-x64.msi
+```
+
+The certificate should be injected through GitHub Actions secrets. EV certificates tend to build SmartScreen reputation faster, but they are not required to build the open-source project.
+
 ## Website Download
 
-Upload the DMG from `dist/` to GitHub Releases, your website host, or object storage and link to it from the new tab/page:
+Upload artifacts from `dist/` to GitHub Releases, your website host, or object storage and link to them from the download page:
 
 ```html
 <a href="/downloads/ThoughtRecorder-1.0.0.dmg" download>
   Download for macOS
+</a>
+
+<a href="/downloads/ThoughtRecorder-1.0.0-windows-win-x64.msi" download>
+  Download for Windows
 </a>
 ```
 
@@ -95,21 +129,18 @@ For transparency, include a second link to the public source code:
 Recommended extras for a production download page:
 
 - Show the current version and release date.
-- Include the minimum macOS version: macOS 13 Ventura or later.
-- Mention required permissions: Microphone, Speech Recognition, and Accessibility for paste automation.
-- Publish a SHA-256 checksum next to the download link.
-
-Generate the checksum with:
-
-```bash
-./scripts/checksum.sh
-```
+- Include minimum supported OS versions.
+- Mention required permissions: microphone and speech recognition on macOS; microphone access and installed speech recognition components on Windows.
+- Publish SHA-256 checksums next to each download link.
+- Mention unsigned Windows SmartScreen warnings until Authenticode signing is enabled.
 
 ## Release Checklist
 
-1. Set the final `APP_NAME`, `BUNDLE_ID`, `MARKETING_VERSION`, and `BUILD_NUMBER`.
-2. Build with a Developer ID certificate.
-3. Notarize and staple the DMG.
-4. Install the DMG on a clean Mac user account.
-5. Confirm microphone, speech recognition, and accessibility permission flows.
-6. Upload the DMG and checksum to the website.
+1. Set the final version.
+2. Build the macOS DMG.
+3. Build the Windows zip and MSI.
+4. Verify checksums.
+5. Install the DMG on a clean Mac user account.
+6. Install the MSI on a clean Windows user account.
+7. Confirm microphone, speech recognition, shortcut, clipboard, launch-at-login, and optional paste flows on both platforms.
+8. Upload artifacts and checksum files to GitHub Releases or the website.
